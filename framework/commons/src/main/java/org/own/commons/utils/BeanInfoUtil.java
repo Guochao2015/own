@@ -16,7 +16,7 @@ import java.lang.reflect.Parameter;
  * java内省机制
  */
 public class BeanInfoUtil {
-
+	
 	/**
 	 * 给bean 相应的属性设值
 	 * @param t
@@ -31,8 +31,17 @@ public class BeanInfoUtil {
 		for(PropertyDescriptor propertydescriptor:getPropertyDescriptors(t)){
 			if(propertydescriptor.getName().equals(name)){
 				Method writeMethod = propertydescriptor.getWriteMethod();
-				if(writeMethod.getParameters()[0].getType() == Boolean.class){
+				Class clazz = writeMethod.getParameterTypes()[0];
+				if(clazz == Boolean.class){
 					writeMethod.invoke(t, "true".equals(value));
+				}else if(clazz == Integer.class){
+					writeMethod.invoke(t, Integer.parseInt((String)value));
+				}else if(clazz == java.lang.Double.class){
+					writeMethod.invoke(t, Double.valueOf((String)value));
+				}else if(clazz == java.lang.Float.class){
+					writeMethod.invoke(t, Float.valueOf((String)value));
+				}else if(clazz == java.lang.Long.class){
+					writeMethod.invoke(t, Long.valueOf((String)value));
 				}else{
 					writeMethod.invoke(t, value);
 				}

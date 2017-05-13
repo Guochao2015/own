@@ -1,9 +1,5 @@
-/**
- * 
- */
 package org.own.commons.utils;
 
-import java.util.Calendar;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
